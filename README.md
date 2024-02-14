@@ -1,5 +1,7 @@
 # changed-specs-quickly-example
 
+![cypress version](https://img.shields.io/badge/cypress-13.6.4-brightgreen) ![@bahmutov/cy-grep version](https://img.shields.io/badge/@bahmutov/cy--grep-1.9.16-brightgreen) ![find-cypress-specs version](https://img.shields.io/badge/find--cypress--specs-1.43.1-brightgreen)
+
 ## Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2024
