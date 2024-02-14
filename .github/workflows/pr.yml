@@ -48,3 +48,4 @@ jobs:
       spec: ${{ needs.find-changed-specs.outputs.changedSpecs }}
       # convert the output string to a number
       nE2E: ${{ fromJson(needs.find-changed-specs.outputs.machinesNeeded) }}
+      start: 'npm start'
