@@ -2,6 +2,8 @@
 
 ![cypress version](https://img.shields.io/badge/cypress-13.6.4-brightgreen) ![@bahmutov/cy-grep version](https://img.shields.io/badge/@bahmutov/cy--grep-1.9.16-brightgreen) ![find-cypress-specs version](https://img.shields.io/badge/find--cypress--specs-1.43.1-brightgreen)
 
+📝 Read the blog post [Quickly Run The Changed Specs on GitHub Actions](https://glebbahmutov.com/blog/quick-changed-specs/).
+
 ## Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2024
