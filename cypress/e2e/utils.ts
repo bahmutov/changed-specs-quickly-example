@@ -61,7 +61,7 @@ export const toggle = (k = 0) =>
     })
 
 /**
- * Selector for all items elements.
+ * Selector for all items elements
  */
 const ALL_ITEMS = '.todo-list li'
 
