@@ -49,11 +49,10 @@ jobs:
       # convert the output string to a number
       nE2E: ${{ fromJson(needs.find-changed-specs.outputs.machinesNeeded) }}
       start: 'npm start'
-      debug: 'cypress-split'
 
-  # run other specs in parallel
+  # run other specs in parallel IF changes specs passed
   other-specs:
-    needs: find-changed-specs
+    needs: [find-changed-specs, changed-specs]
     uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
     with:
       # we already have done the changed specs
@@ -61,4 +60,3 @@ jobs:
       skip-spec: ${{ needs.find-changed-specs.outputs.changedSpecs }}
       nE2E: 2
       start: 'npm start'
-      debug: 'cypress-split'
