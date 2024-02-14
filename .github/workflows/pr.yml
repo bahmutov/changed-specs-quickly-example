@@ -6,6 +6,7 @@ jobs:
     outputs:
       changedSpecs: ${{ steps.trace.outputs.changedSpecs }}
       changedSpecsN: ${{ steps.trace.outputs.changedSpecsN }}
+      machinesNeeded: ${{ steps.trace.outputs.machinesNeeded }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,9 +28,15 @@ jobs:
       - name: Trace changed specs
         # against the "main" branch
         # and including changed files imported by specs
+        # and compute how many machines we need to
+        # run changed the changed specs in parallel
         # https://github.com/bahmutov/find-cypress-specs
         id: trace
-        run: npm run trace-changed-specs -- --set-gha-outputs --gha-summary
+        run: |
+          npm run trace-changed-specs -- \
+            --set-gha-outputs --gha-summary \
+            --specs-per-machine 2 \
+            --max-machines 3
 
   # run all changed specs on a single machine
   changed-specs:
@@ -39,3 +46,4 @@ jobs:
     uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
     with:
       spec: ${{ needs.find-changed-specs.outputs.changedSpecs }}
+      nE2E: ${{ needs.find-changed-specs.outputs.machinesNeeded }}
