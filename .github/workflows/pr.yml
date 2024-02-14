@@ -1,8 +1,12 @@
 name: PR checks
 on: [pull_request]
 jobs:
-  changed-tests:
+  find-changed-specs:
     runs-on: ubuntu-22.04
+    outputs:
+      changedSpecs: ${{ steps.trace.outputs.changedSpecs }}
+      changedSpecsN: ${{ steps.trace.outputs.changedSpecsN }}
+      machinesNeeded: ${{ steps.trace.outputs.machinesNeeded }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,18 +26,27 @@ jobs:
           cache-key-prefix: 'find-cypress-specs'
 
       - name: Trace changed specs
-        # against the "master" branch
+        # against the "main" branch
         # and including changed files imported by specs
+        # and compute how many machines we need to
+        # run changed the changed specs in parallel
         # https://github.com/bahmutov/find-cypress-specs
         id: trace
-        run: npm run trace-changed-specs
+        run: |
+          npm run trace-changed-specs -- \
+            --set-gha-outputs --gha-summary \
+            --specs-per-machine 2 \
+            --max-machines 3
 
-      # - name: Run changed Cypress specs 🏎
-      #   if: ${{ steps.trace.outputs.changedSpecsN > 0 }}
-      #   uses: cypress-io/github-action@v5
-      #   with:
-      #     # we have already installed all dependencies above
-      #     install: false
-      #     spec: ${{ steps.trace.outputs.changedSpecs }}
-      #     # start the app before running the tests
-      #     start: npm start
+  # run all changed specs on a single machine
+  changed-specs:
+    needs: find-changed-specs
+    if: ${{ needs.find-changed-specs.outputs.changedSpecsN > 0 }}
+    # https://github.com/bahmutov/cypress-workflows
+    uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
+    with:
+      spec: ${{ needs.find-changed-specs.outputs.changedSpecs }}
+      # convert the output string to a number
+      nE2E: ${{ fromJson(needs.find-changed-specs.outputs.machinesNeeded) }}
+      start: 'npm start'
+      debug: 'cypress-split'
