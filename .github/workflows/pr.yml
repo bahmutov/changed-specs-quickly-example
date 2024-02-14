@@ -46,4 +46,5 @@ jobs:
     uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
     with:
       spec: ${{ needs.find-changed-specs.outputs.changedSpecs }}
-      nE2E: ${{ needs.find-changed-specs.outputs.machinesNeeded }}
+      # convert the output string to a number
+      nE2E: ${{ fromJson(needs.find-changed-specs.outputs.machinesNeeded) }}
