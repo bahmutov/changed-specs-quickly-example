@@ -16,7 +16,7 @@ module.exports = (on, config) => {
   require('cypress-watch-and-reload/plugins')(on, config)
 
   // https://github.com/bahmutov/cy-grep
-  require('@bahmutov/cy-grep/src/plugin')(config)
+  // require('@bahmutov/cy-grep/src/plugin')(config)
 
   // https://github.com/bahmutov/cypress-split
   require('cypress-split')(on, config)
