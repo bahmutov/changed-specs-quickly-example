@@ -1,0 +1,37 @@
+# this workflow computes the dependencies between Cypress spec
+# source files every day and saves it to the file deps.json
+# and pushes any changes back to the origin.
+# This lets the pull requests quickly determine which spec
+# files to re-run by looking at the changes
+name: spec dependencies
+on:
+  schedule:
+    - cron: '0 4 * * *'
+  # trigger this workflow from GitHub Actions UI
+  workflow_dispatch:
+
+jobs:
+  find-dependencies:
+    name: Find source dependencies
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v4
+
+      - name: Install spec-change 📦
+        # https://github.com/bahmutov/npm-install
+        uses: bahmutov/npm-install@v1
+        with:
+          # use just package.json checksum
+          useLockFile: false
+          install-command: 'npm install spec-change'
+
+      - name: Find Cypress spec dependencies 🧱
+        run: npm run trace-deps
+
+      - name: Commit any changed files 💾
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Updated Cypress spec dependencies
+          branch: master
+          file_pattern: deps.json
