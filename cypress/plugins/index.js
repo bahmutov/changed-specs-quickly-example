@@ -18,6 +18,9 @@ module.exports = (on, config) => {
   // https://github.com/bahmutov/cy-grep
   require('@bahmutov/cy-grep/src/plugin')(config)
 
+  // https://github.com/bahmutov/cypress-split
+  require('cypress-split')(on, config)
+
   on('task', {
     getNumber() {
       return 42

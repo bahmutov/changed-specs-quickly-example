@@ -14,9 +14,9 @@
     "cy:run": "cypress run",
     "badges": "npx -p dependency-version-badge update-badge cypress @bahmutov/cy-grep find-cypress-specs",
     "specs": "spec-change --folder cypress",
-    "changed-specs": "find-cypress-specs --branch main --parent",
     "trace-deps": "spec-change --folder cypress --save-deps deps.json --time",
-    "trace-changed-specs": "find-cypress-specs --branch main --parent --trace-imports cypress --cache-trace --set-gha-outputs"
+    "changed-specs": "find-cypress-specs --branch main --parent",
+    "trace-changed-specs": "find-cypress-specs --branch main --parent --trace-imports cypress --cache-trace"
   },
   "repository": {
     "type": "git",
@@ -42,6 +42,7 @@
     "@bahmutov/cy-grep": "1.9.16",
     "cypress": "13.6.4",
     "cypress-repeat": "2.3.3",
+    "cypress-split": "^1.19.2",
     "cypress-watch-and-reload": "1.10.6",
     "find-cypress-specs": "1.42.0",
     "prettier": "3.0.3",
