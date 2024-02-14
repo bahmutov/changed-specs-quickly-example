@@ -49,7 +49,6 @@ jobs:
       # convert the output string to a number
       nE2E: ${{ fromJson(needs.find-changed-specs.outputs.machinesNeeded) }}
       start: 'npm start'
-      debug: 'cypress-split'
 
   # run other specs in parallel IF changes specs passed
   other-specs:
@@ -61,4 +60,3 @@ jobs:
       skip-spec: ${{ needs.find-changed-specs.outputs.changedSpecs }}
       nE2E: 2
       start: 'npm start'
-      debug: 'cypress-split'
