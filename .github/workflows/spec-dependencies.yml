@@ -25,6 +25,7 @@ jobs:
           # use just package.json checksum
           useLockFile: false
           install-command: 'npm install spec-change'
+          cache-key-prefix: 'spec-change'
 
       - name: Find Cypress spec dependencies 🧱
         run: npm run trace-deps

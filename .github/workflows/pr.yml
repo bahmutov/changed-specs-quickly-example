@@ -19,6 +19,7 @@ jobs:
           # use just package.json checksum
           useLockFile: false
           install-command: 'npm install find-cypress-specs'
+          cache-key-prefix: 'find-cypress-specs'
 
       - name: Trace changed specs
         # against the "master" branch
