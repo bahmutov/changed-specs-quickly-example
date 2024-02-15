@@ -18,12 +18,12 @@ jobs:
 
       - name: Install find-cypress-specs 📦
         # https://github.com/bahmutov/npm-install
-        uses: bahmutov/npm-install@v1
+        uses: bahmutov/npm-install@performance
         with:
           # use just package.json checksum
           useLockFile: false
           install-command: 'npm install find-cypress-specs'
-          cache-key-prefix: 'find-cypress-specs'
+          cache-key-prefix: 'find-cypress-specs2'
 
       - name: Trace changed specs
         # against the "main" branch
